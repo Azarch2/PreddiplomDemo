@@ -1,0 +1,27 @@
+﻿<Window x:Class="ProductDEmo.CaptchaWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ProductDEmo"
+        mc:Ignorable="d"
+        Title="CaptchaWindow" Height="240" Width="400" WindowStartupLocation="CenterScreen">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30"></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        <Border Background="#468C51"></Border>
+        <TextBlock FontSize="18" Text="Вы должны пройти капчу, чтобы продолжить" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource StandartTextBlock}"></TextBlock>
+        <TextBlock Foreground="Black" FontWeight="Bold" Grid.Row="1" FontSize="18" Text="Введите числа ниже:" Margin="20" HorizontalAlignment="Center" VerticalAlignment="Top" Style="{StaticResource StandartTextBlock}"></TextBlock>
+        <TextBlock Name="CaptchaTextBlock" Foreground="Black"  Grid.Row="1" FontSize="18" Text="5555" Margin="40" HorizontalAlignment="Center" VerticalAlignment="Top" Style="{StaticResource StandartTextBlock}"></TextBlock>
+        <TextBox Name="TextBoxNumbers" Grid.Row="1" Style="{StaticResource StandartTextBox}" Width="200" Margin="0,25,0,0"  Height="35"></TextBox>
+        <Button Click="ClickCaptchaCheck" Grid.Row="1" Width="175" Height="40" Style="{StaticResource StandartButton}" VerticalAlignment="Bottom" Margin="3" Content="Ввести" Foreground="White" Background="#76E383">
+            <Button.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="20"></Setter>
+                </Style>
+            </Button.Resources>
+        </Button>
+    </Grid>
+</Window>
