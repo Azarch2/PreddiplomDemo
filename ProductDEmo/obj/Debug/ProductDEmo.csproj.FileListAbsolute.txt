@@ -82,3 +82,7 @@ C:\PreddiplomDemo\ProductDEmo\obj\Debug\ProductDEmo.csproj.CoreCompileInputs.cac
 C:\PreddiplomDemo\ProductDEmo\obj\Debug\ProductDEmo.csproj.CopyComplete
 C:\PreddiplomDemo\ProductDEmo\obj\Debug\ProductDEmo.exe
 C:\PreddiplomDemo\ProductDEmo\obj\Debug\ProductDEmo.pdb
+C:\PreddiplomDemo\ProductDEmo\obj\Debug\AdminWindow.g.cs
+C:\PreddiplomDemo\ProductDEmo\obj\Debug\AdminWindow.baml
+C:\PreddiplomDemo\ProductDEmo\obj\Debug\ChangeProductWindow.g.cs
+C:\PreddiplomDemo\ProductDEmo\obj\Debug\ChangeProductWindow.baml

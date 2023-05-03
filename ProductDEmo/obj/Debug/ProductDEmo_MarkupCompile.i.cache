@@ -4,17 +4,17 @@
 winexe
 C#
 .cs
-C:\Users\zzz\source\repos\ProductDEmo\ProductDEmo\obj\Debug\
+C:\PreddiplomDemo\ProductDEmo\obj\Debug\
 ProductDEmo
 none
 false
 DEBUG;TRACE
-C:\Users\zzz\source\repos\ProductDEmo\ProductDEmo\App.xaml
-3-1398794154
+C:\PreddiplomDemo\ProductDEmo\App.xaml
+5-937850626
 16454644504
-22-1998603023
-19151087598
-CaptchaWindow.xaml;MainWindow.xaml;ProductWindow.xaml;
+24966071233
+19-1588927336
+AdminWindow.xaml;CaptchaWindow.xaml;ChangeProductWindow.xaml;MainWindow.xaml;ProductWindow.xaml;
 
 True
 

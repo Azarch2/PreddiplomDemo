@@ -13,6 +13,8 @@ namespace ProductDEmo
         public static MainWindow mainWindow;
         public static ProductWindow productWindow = new ProductWindow();
         public static CaptchaWindow captchaWindow = new CaptchaWindow();
+        public static AdminWindow adminWindow = new AdminWindow();
+        public static ChangeProductWindow changeProductWindow = new ChangeProductWindow();
         public static int NumbersOfIncorrectAuthorizations = 0;
         public static int CaptchaNumbers = 00000;
         public MainWindow()
@@ -33,30 +35,47 @@ namespace ProductDEmo
             {
                 if (Product.ProductPhoto != null)
                 {
-                    Product.FullPath = "Resources/" + Product.ProductPhoto;
+                    if (Product.ProductPhoto.Contains("C:")){
+                        Product.FullPath =  Product.ProductPhoto;
+                    }
+                    else
+                    {
+                        Product.FullPath = "Resources/" + Product.ProductPhoto;
+                    }
                 }
 
                 vivod += Product.FullPath + "\n";
             }
+            MessageBox.Show(vivod);
         }
 
         private void ExitClick(object sender, RoutedEventArgs e)
         {
             Application.Current.Shutdown();
         }
+        public void LoadAdminWindow()
+        {
+            this.Hide();
+            adminWindow.AdminProductGrid.ItemsSource = db.Product.ToList();
+            adminWindow.Show();
+        }
 
         private void AuthorizationClick(object sender, RoutedEventArgs e)
         {
             if (NumbersOfIncorrectAuthorizations < 5)
             {
-                try
-                {
+               /* try
+                {*/
                     User user = db.User.ToList().Where(us => us.UserLogin == LoginTextBox.Text && us.UserPassword == PasswordTextBox.Text).FirstOrDefault();
                     if (user != null)
                     {
                         MessageBox.Show(user.UserLogin);
                         MessageBox.Show("Вы успешно авторизовались");
                         MessageBox.Show("Ваша роль: " + user.Role.RoleName);
+                        if(user.Role.RoleName == "Администратор")
+                        {
+                            LoadAdminWindow();
+                        }
                     }
                     else
                     {
@@ -72,11 +91,11 @@ namespace ProductDEmo
                             MessageBox.Show("Вы потратили на авторизацию слишком много попыток");
                         }
                     }
-                }
+              /*  }
                 catch
                 {
                     MessageBox.Show("Возникла непредвиденная ошибка");
-                }
+                }*/
             }
             else
             {

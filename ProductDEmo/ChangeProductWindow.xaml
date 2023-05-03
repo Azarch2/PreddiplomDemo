@@ -1,0 +1,73 @@
+﻿<Window x:Class="ProductDEmo.ChangeProductWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ProductDEmo"
+        mc:Ignorable="d"
+        Title="ChangeProductWindow" Height="790" Width="600" Icon="Resources/icon.ico" Closing="Close" WindowStartupLocation="CenterScreen">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition ></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        
+       
+        <StackPanel Margin="5" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Top">
+            <TextBlock Style="{StaticResource AnotherTextBlock}" Text="Артикул"></TextBlock>
+            <TextBox IsReadOnly="True" Name="ArticleTextBox" Width="300" Style="{StaticResource StandartTextBox}" ></TextBox>
+            <TextBlock Style="{StaticResource AnotherTextBlock}" Text="Наименование"></TextBlock>
+            <TextBox Name="NameTextBox" Width="300" Style="{StaticResource StandartTextBox}" ></TextBox>
+            <TextBlock Style="{StaticResource AnotherTextBlock}" Text="Единица измерения"></TextBlock>
+            <ComboBox DisplayMemberPath="UnitTypeName" Name="UnitTypeComboBox" Style="{StaticResource StandartComboBox}" Width="300" >
+            </ComboBox>
+            <TextBlock Style="{StaticResource AnotherTextBlock}" Text="Цена"></TextBlock>
+            <TextBox Name="PriceTextBox"  Width="300" Style="{StaticResource StandartTextBox}" ></TextBox>
+            <TextBlock Style="{StaticResource AnotherTextBlock}" Text="Макс. скидка"></TextBlock>
+            <TextBox Name="MaxDiscountTextBox" Width="300" Style="{StaticResource StandartTextBox}" ></TextBox>
+            <TextBlock Style="{StaticResource AnotherTextBlock}" Text="Производитель"></TextBlock>
+            <ComboBox DisplayMemberPath="ProductManufacturerName" Name="ManufacturerComboBox" Style="{StaticResource StandartComboBox}" Width="300" >
+            </ComboBox>
+            <TextBlock Style="{StaticResource AnotherTextBlock}" Text="Поставщик"></TextBlock>
+            <ComboBox DisplayMemberPath="ProductSupplierName" Name="SupplierComboBox" Style="{StaticResource StandartComboBox}" Width="300" >
+            </ComboBox>
+            <TextBlock Style="{StaticResource AnotherTextBlock}" Text="Категория"></TextBlock>
+            <ComboBox DisplayMemberPath="ProductCategoryName" Name="CategoryComboBox" Style="{StaticResource StandartComboBox}" Width="300" >
+            </ComboBox>
+
+
+        </StackPanel>
+        <StackPanel Margin="5" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Top">
+            <TextBlock Style="{StaticResource AnotherTextBlock}" Text="Размер скидки"></TextBlock>
+            <TextBox Name="DiscountTextBox"  Width="300" Style="{StaticResource StandartTextBox}" ></TextBox>
+            <TextBlock Style="{StaticResource AnotherTextBlock}" Text="Кол-во в упаковке"></TextBlock>
+            <TextBox Name="QuantityTextBox" Width="300" Style="{StaticResource StandartTextBox}" ></TextBox>
+            <TextBlock Style="{StaticResource AnotherTextBlock}" Text="Описание"></TextBlock>
+            <TextBox Name="DescriptionTextBox"  Width="300" Style="{StaticResource StandartTextBox}" ></TextBox>
+            <Button Background="LightGreen"  Content="Выбор фото" FontSize="26" Width="200" Height="75" HorizontalAlignment="Center" Style="{StaticResource StandartButton}" Grid.Row="2" Margin="10" Click="ChoosePhotoClick">
+                <Button.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="20"></Setter>
+                    </Style>
+                </Button.Resources>
+            </Button>
+            <Image Name="ChoosedPhotoImage" Height="150"></Image>
+
+
+
+        </StackPanel>
+        <Border Grid.ColumnSpan="2" Grid.Row="0" Background="#468C51"></Border>
+        <TextBlock Text="Редактирование товара"  Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource StandartTextBlock}"></TextBlock>
+        <Button Grid.ColumnSpan="2" Background="LightGreen"  Content="Изменить" FontSize="26" Width="250" Height="65" VerticalAlignment="Bottom" HorizontalAlignment="Center" Style="{StaticResource StandartButton}" Grid.Row="2" Margin="10" Click="ChangeProductClick">
+            <Button.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="20"></Setter>
+                </Style>
+            </Button.Resources>
+        </Button>
+    </Grid>
+</Window>
