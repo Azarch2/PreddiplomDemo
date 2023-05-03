@@ -86,3 +86,9 @@ C:\PreddiplomDemo\ProductDEmo\obj\Debug\AdminWindow.g.cs
 C:\PreddiplomDemo\ProductDEmo\obj\Debug\AdminWindow.baml
 C:\PreddiplomDemo\ProductDEmo\obj\Debug\ChangeProductWindow.g.cs
 C:\PreddiplomDemo\ProductDEmo\obj\Debug\ChangeProductWindow.baml
+C:\PreddiplomDemo\ProductDEmo\obj\Debug\AddProductWindow.g.cs
+C:\PreddiplomDemo\ProductDEmo\obj\Debug\AddProductWindow.baml
+C:\PreddiplomDemo\ProductDEmo\obj\Debug\UserProductWindow.g.cs
+C:\PreddiplomDemo\ProductDEmo\obj\Debug\UserProductWindow.baml
+C:\PreddiplomDemo\ProductDEmo\obj\Debug\OrderWindow.g.cs
+C:\PreddiplomDemo\ProductDEmo\obj\Debug\OrderWindow.baml

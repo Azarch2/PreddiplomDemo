@@ -10,11 +10,11 @@ none
 false
 DEBUG;TRACE
 C:\PreddiplomDemo\ProductDEmo\App.xaml
-5-937850626
+8-1999289572
 16454644504
-23-1246807445
+26-137989779
 19-1588927336
-AdminWindow.xaml;CaptchaWindow.xaml;ChangeProductWindow.xaml;MainWindow.xaml;ProductWindow.xaml;
+AddProductWindow.xaml;AdminWindow.xaml;CaptchaWindow.xaml;ChangeProductWindow.xaml;MainWindow.xaml;OrderWindow.xaml;ProductWindow.xaml;UserProductWindow.xaml;
 
 False
 

@@ -22,6 +22,13 @@
                 </Style>
             </Button.Resources>
         </Button>
+        <Button Background="LightGreen" Content="Добавить товар" Width="150" HorizontalAlignment="Center" Style="{StaticResource StandartButton}" Grid.Row="4" Margin="10" Click="AddClick">
+            <Button.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="20"></Setter>
+                </Style>
+            </Button.Resources>
+        </Button>
         <DataGrid SelectionChanged="ChangeProduct" Name="AdminProductGrid" FontSize="16" Grid.Row="1" Margin="5" AutoGenerateColumns="False">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="ID" Binding="{Binding ProductID}"></DataGridTextColumn>

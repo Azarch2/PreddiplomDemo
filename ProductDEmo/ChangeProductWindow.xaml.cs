@@ -31,10 +31,8 @@ namespace ProductDEmo
         private void ChoosePhotoClick(object sender, RoutedEventArgs e)
         {
             OpenFileDialog dialog = new OpenFileDialog();
-            
-                dialog.ShowDialog();
-                MessageBox.Show("Yes");
-                ChoosedPhotoImage.Source = new BitmapImage(new Uri(dialog.FileName));
+            dialog.ShowDialog();
+            ChoosedPhotoImage.Source = new BitmapImage(new Uri(dialog.FileName));
         }
 
         private void ChangeProductClick(object sender, RoutedEventArgs e)
@@ -49,6 +47,7 @@ namespace ProductDEmo
             currentProduct.ProductDiscountAmount = byte.Parse(DiscountTextBox.Text);
             currentProduct.ProductQuantityInStock = int.Parse(QuantityTextBox.Text);
             currentProduct.ProductPhoto = ChoosedPhotoImage.Source.ToString();
+            currentProduct.FullPath = ChoosedPhotoImage.Source.ToString();
             MainWindow.db.SaveChanges();
             MessageBox.Show("Вы успешно отредактировали товар!");
             this.Hide();
@@ -59,6 +58,15 @@ namespace ProductDEmo
         {
             e.Cancel = true;
             this.Hide();
+        }
+
+        private void DeleteProductClick(object sender, RoutedEventArgs e)
+        {
+            MainWindow.db.Product.Remove(currentProduct);
+            MainWindow.db.SaveChanges();
+            MessageBox.Show("Вы успешно удалили продукт");
+            this.Hide();
+            MainWindow.adminWindow.AdminProductGrid.ItemsSource = MainWindow.db.Product.ToList();
         }
     }
 }

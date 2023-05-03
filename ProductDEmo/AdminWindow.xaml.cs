@@ -35,6 +35,10 @@ namespace ProductDEmo
         private void ChangeProduct(object sender, SelectionChangedEventArgs e)
         {
             ChangeProductWindow.currentProduct = AdminProductGrid.SelectedItem as Product;
+            if (ChangeProductWindow.currentProduct == null)
+            {
+                return;
+            }
             Product choosed = AdminProductGrid.SelectedItem as Product;
             MainWindow.changeProductWindow.ArticleTextBox.Text = choosed.ProductArticleNumber;
             MainWindow.changeProductWindow.NameTextBox.Text = choosed.ProductName;
@@ -69,5 +73,15 @@ namespace ProductDEmo
             MainWindow.changeProductWindow.UnitTypeComboBox.SelectedItem = choosed.UnitType;
             MainWindow.changeProductWindow.Show();
         }
+
+        private void AddClick(object sender, RoutedEventArgs e)
+        {
+            MainWindow.addProductWindow.CategoryComboBox.ItemsSource = MainWindow.db.ProductCategory.ToList();
+            MainWindow.addProductWindow.ManufacturerComboBox.ItemsSource = MainWindow.db.ProductManufacturer.ToList();
+            MainWindow.addProductWindow.SupplierComboBox.ItemsSource = MainWindow.db.ProductSupplier.ToList();
+            MainWindow.addProductWindow.UnitTypeComboBox.ItemsSource = MainWindow.db.UnitType.ToList();
+            MainWindow.addProductWindow.Show();
+        }
+        
     }
 }

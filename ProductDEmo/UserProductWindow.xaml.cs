@@ -1,5 +1,5 @@
-﻿using System.Collections.Generic;
-using System.Collections.Specialized;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
@@ -8,23 +8,25 @@ using System.Windows.Media;
 
 namespace ProductDEmo
 {
-    /// <summary>
-    /// Логика взаимодействия для ProductWindow.xaml
-    /// </summary>
-    public partial class ProductWindow : Window
+    public partial class UserProductWindow : Window
     {
-      
+        public static bool CurrentOrderExists = false;
+        public static Order currentOrder = new Order();
         public static List<Product> productSortedList = MainWindow.db.Product.ToList();
-        public ProductWindow()
+        public UserProductWindow()
         {
             InitializeComponent();
-          
         }
-        private void BackClick(object sender, RoutedEventArgs e)
+         private void BackClick(object sender, RoutedEventArgs e)
         {
             this.Hide();
             MainWindow.mainWindow.Show();
         }
+
+         public void ShowOrderButton()
+         {
+           
+         }
 
         private void TextChange(object sender, TextChangedEventArgs e)
         {
@@ -91,6 +93,54 @@ namespace ProductDEmo
         private void ClickDOubleCheck(object sender, MouseButtonEventArgs e)
         {
             ChangeColorIfDiscountLargerThan15();
+        }
+
+        private void CheckOrder(object sender, RoutedEventArgs e)
+        {
+            MainWindow.orderWindow.Show();
+            //MainWindow.orderWindow.OrderListView.ItemsSource = MainWindow.db.Order.Where(order=> order.OrderID==currentOrder.OrderID).FirstOrDefault().OrderProduct;
+        }
+
+        public void AddCurrentOrderToDatabase()
+        {
+            currentOrder.OrderStatusID = 1;
+            currentOrder.PickupPointID = 1;
+            currentOrder.OrderCreateDate=DateTime.Now;
+            currentOrder.OrderDeliveryDate=DateTime.Now;
+            currentOrder.User = MainWindow.CurrentUser;
+            currentOrder.OrderGetCode = 5555;
+            MainWindow.db.Order.Add(currentOrder);
+            MainWindow.db.SaveChanges();
+            CurrentOrderExists = true;
+            MessageBox.Show("Order added");
+        }
+        private void AddToOrderClick(object sender, RoutedEventArgs e)
+        {
+            if (!CurrentOrderExists)
+            {
+                AddCurrentOrderToDatabase();
+            }
+            Product product = (sender as MenuItem).DataContext as Product;
+           // MessageBox.Show(product.ProductName);
+            OrderProduct orderProduct = new OrderProduct();
+            orderProduct.Product = product;
+            orderProduct.Order = MainWindow.db.Order.Where(order=> order.OrderID==currentOrder.OrderID).FirstOrDefault();
+            orderProduct.Count = 1;
+            MainWindow.db.OrderProduct.Add(orderProduct);
+            MainWindow.db.SaveChanges();
+            MainWindow.orderWindow.OrderListView.ItemsSource = MainWindow.db.Order.Where(order=> order.OrderID==currentOrder.OrderID).FirstOrDefault().OrderProduct.ToList();
+           // MainWindow.orderWindow.OrderListView.ItemsSource = MainWindow.db.Order.ToList();
+            MessageBox.Show("CountOfProducts: " + MainWindow.db.Order
+                .Where(order => order.OrderID == currentOrder.OrderID).FirstOrDefault().OrderProduct.Count);
+            MessageBox.Show("ItemCountINlist: " + MainWindow.orderWindow.OrderListView.Items.Count);
+            if (MainWindow.db.Order
+                    .Where(order => order.OrderID == currentOrder.OrderID).FirstOrDefault().OrderProduct.Count > 1)
+            {
+                MessageBox.Show("Второй айтем: " +
+                                (MainWindow.orderWindow.OrderListView.Items[1] as OrderProduct).Product.ProductName);
+            }
+            MessageBox.Show("К заказу был добавлен продукт");
+            // order.Product = 
         }
     }
 }

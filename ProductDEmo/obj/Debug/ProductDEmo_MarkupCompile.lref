@@ -1,8 +1,11 @@
 ﻿
 FC:\PreddiplomDemo\ProductDEmo\App.xaml;;
+FC:\PreddiplomDemo\ProductDEmo\AddProductWindow.xaml;;
 FC:\PreddiplomDemo\ProductDEmo\AdminWindow.xaml;;
 FC:\PreddiplomDemo\ProductDEmo\CaptchaWindow.xaml;;
-FC:\PreddiplomDemo\ProductDEmo\MainWindow.xaml;;
-FC:\PreddiplomDemo\ProductDEmo\ProductWindow.xaml;;
 FC:\PreddiplomDemo\ProductDEmo\ChangeProductWindow.xaml;;
+FC:\PreddiplomDemo\ProductDEmo\MainWindow.xaml;;
+FC:\PreddiplomDemo\ProductDEmo\OrderWindow.xaml;;
+FC:\PreddiplomDemo\ProductDEmo\ProductWindow.xaml;;
+FC:\PreddiplomDemo\ProductDEmo\UserProductWindow.xaml;;
 
