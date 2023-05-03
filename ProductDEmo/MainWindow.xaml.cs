@@ -1,21 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Collections.Specialized;
-using System.Data.Entity;
 using System.Linq;
-using System.Security.Cryptography;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace ProductDEmo
 {
@@ -34,22 +19,17 @@ namespace ProductDEmo
         {
             InitializeComponent();
             mainWindow = this;
-            PathInitializa();
-        }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-
+            PathInitialize();
         }
         public void GenerateCaptcha()
         {
             Random rnd = new Random();
             CaptchaNumbers = rnd.Next(10000, 99999);
         }
-        public void PathInitializa()
+        public void PathInitialize()
         {
             string vivod = "";
-            foreach(var Product in db.Product)
+            foreach (var Product in db.Product)
             {
                 if (Product.ProductPhoto != null)
                 {
@@ -58,12 +38,11 @@ namespace ProductDEmo
 
                 vivod += Product.FullPath + "\n";
             }
-          //  MessageBox.Show(vivod);
         }
 
         private void ExitClick(object sender, RoutedEventArgs e)
         {
-           Application.Current.Shutdown();
+            Application.Current.Shutdown();
         }
 
         private void AuthorizationClick(object sender, RoutedEventArgs e)
@@ -93,7 +72,6 @@ namespace ProductDEmo
                             MessageBox.Show("Вы потратили на авторизацию слишком много попыток");
                         }
                     }
-                    // MessageBox.Show("Успешная авторизация");
                 }
                 catch
                 {
@@ -107,9 +85,9 @@ namespace ProductDEmo
                 captchaWindow.CaptchaTextBlock.Text = CaptchaNumbers.ToString();
                 MessageBox.Show("Сначала пройдите капчу!");
             }
-            }
+        }
 
-            public void TextBoxClear()
+        public void TextBoxClear()
         {
             PasswordTextBox.Text = "";
             LoginTextBox.Text = "";
