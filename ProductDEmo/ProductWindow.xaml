@@ -5,20 +5,26 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ProductDEmo"
         mc:Ignorable="d"
-        Title="ProductWindow" Height="510" Width="800" WindowStartupLocation="CenterScreen" Icon="Resources/icon.ico">
+        Title="ProductWindow" MouseDoubleClick="ClickDOubleCheck" Height="510" Width="800" WindowStartupLocation="CenterScreen" Icon="Resources/icon.ico">
+    <Window.Resources>
+    </Window.Resources>
     <Grid >
+        
         <Grid.RowDefinitions>
             <RowDefinition Height="75"></RowDefinition>
             <RowDefinition Height="60"></RowDefinition>
+            <RowDefinition Height="35"></RowDefinition>
             <RowDefinition></RowDefinition>
             <RowDefinition Height="75"></RowDefinition>
         </Grid.RowDefinitions>
         <Border Grid.Row="0" Background="#468C51"></Border>
         <TextBlock Text="Здесь вы можете апрсоматривать наши товары" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource StandartTextBlock}"></TextBlock>
-        <Border Grid.Row="3" Background="#468C51"></Border>
+        <Border Grid.Row="4" Background="#468C51"></Border>
+        <Border Grid.Row="3" Background="#76E383"></Border>
         <Border Grid.Row="2" Background="#76E383"></Border>
-        <StackPanel Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center">
-            <ListView  Width="780" Height="260" Name="ProductListView" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+        <TextBlock Name="InfoTextBox" Grid.Row="2" Foreground="#468C51" Text="Кол-во данных:" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource StandartTextBlock}"></TextBlock>
+        <StackPanel Grid.Row="3" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <ListView Width="780" Height="260" Name="ProductListView" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
                 <ListView.ItemsPanel>
                     <ItemsPanelTemplate>
                         <StackPanel Margin="10" Orientation="Vertical"></StackPanel>
@@ -26,7 +32,7 @@
                 </ListView.ItemsPanel>
                 <ListView.ItemTemplate>
                     <DataTemplate>
-                        <Grid Height="120" Width="750" Background="Aquamarine">
+                        <Grid Name="ItemGrid" Height="120" Width="750" Background="Aquamarine">
                             <StackPanel Orientation="Horizontal">
                                 <Image  Margin="5" Width="200">
                                     <Image.Source>
@@ -50,11 +56,9 @@
                         </Grid>
                     </DataTemplate>
                 </ListView.ItemTemplate>
-           
-      
             </ListView>
         </StackPanel>
-        <Button Background="LightGreen" Content="Назад" Width="150" HorizontalAlignment="Left" Style="{StaticResource StandartButton}" Grid.Row="3" Margin="10" Click="BackClick">
+        <Button Background="LightGreen" Content="Назад" Width="150" HorizontalAlignment="Left" Style="{StaticResource StandartButton}" Grid.Row="4" Margin="10" Click="BackClick">
             <Button.Resources>
                 <Style TargetType="Border">
                     <Setter Property="CornerRadius" Value="20"></Setter>

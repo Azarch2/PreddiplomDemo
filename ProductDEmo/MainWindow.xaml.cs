@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
+using System.Data.Entity;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -114,9 +117,11 @@ namespace ProductDEmo
 
         private void ProductsClick(object sender, RoutedEventArgs e)
         {
+            productWindow.ProductListView.ItemsSource = db.Product.ToList();
             mainWindow.Hide();
             productWindow.Show();
-            productWindow.ProductListView.ItemsSource = db.Product.ToList();
+            productWindow.InfoTextBox.Text = "Количество: " + MainWindow.db.Product.ToList().Count + "/" + MainWindow.db.Product.ToList().Count;
+            productWindow.ChangeColorIfDiscountLargerThan15();
         }
     }
 }
