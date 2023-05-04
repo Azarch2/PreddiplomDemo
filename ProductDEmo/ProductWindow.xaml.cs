@@ -20,16 +20,28 @@ namespace ProductDEmo
             InitializeComponent();
           
         }
+        /// <summary>
+        /// Функция возврата на предыдущее окно
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void BackClick(object sender, RoutedEventArgs e)
         {
             this.Hide();
             MainWindow.mainWindow.Show();
         }
-
+        /// <summary>
+        /// Функция редактирования текста поисковой строки
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void TextChange(object sender, TextChangedEventArgs e)
         {
             AddAllFilters();
         }
+        /// <summary>
+        /// Функция добавления всех фильтров
+        /// </summary>
         public void AddAllFilters()
         {
             productSortedList = productSortedList.Where(prod => prod.ProductName.StartsWith(FindTextBox.Text)).ToList();
@@ -60,15 +72,27 @@ namespace ProductDEmo
             productSortedList = MainWindow.db.Product.ToList();
             ChangeColorIfDiscountLargerThan15();
         }
+        /// <summary>
+        /// Функция реагирования на событие редактирования товара
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ChangeSelection(object sender, SelectionChangedEventArgs e)
         {
             AddAllFilters();
         }
-
+        /// <summary>
+        /// Событие изменения выбора сортировки
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ChangeSelectionOfDiscountComboBox(object sender, SelectionChangedEventArgs e)
         {
             AddAllFilters();
         }
+        /// <summary>
+        /// Функция применения цвета для элемента если скидка больше определённого значения
+        /// </summary>
         public void ChangeColorIfDiscountLargerThan15()
         {
             for (int i = 0; i < ProductListView.Items.Count; i++)
@@ -88,9 +112,6 @@ namespace ProductDEmo
                 }
             }
         }
-        private void ClickDOubleCheck(object sender, MouseButtonEventArgs e)
-        {
-            ChangeColorIfDiscountLargerThan15();
-        }
+ 
     }
 }

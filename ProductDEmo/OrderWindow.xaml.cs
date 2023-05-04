@@ -16,41 +16,39 @@ namespace ProductDEmo
         public static decimal TotalSumOfOrder = 0;
         public static decimal TotalSumOfOrderWithDiscounts = 0;
 
-
         public OrderWindow()
         {
             InitializeComponent();
             PickupPointComboBox.ItemsSource = MainWindow.db.PickupPoint.ToList();
         }
-
-        private void CheckOrder(object sender, RoutedEventArgs e)
-        {
-            
-        }
-
+        /// <summary>
+        /// Функция закрытия окна
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Close(object sender, CancelEventArgs e)
         {
             e.Cancel = true;
             this.Hide();
         }
-
+        /// <summary>
+        /// Функция удаления товара из корзины пользователя
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Minus(object sender, RoutedEventArgs e)
         {
             OrderProduct orderProductToRemove = (sender as Button).DataContext as OrderProduct;
             List<OrderProduct> orderProductCollection = MainWindow.db.Order
                 .Where(order => order.OrderID == UserProductWindow.currentOrder.OrderID).FirstOrDefault().OrderProduct
                 .ToList();
-    
-                MessageBox.Show("FindedThisOrder");
                 if (orderProductToRemove.Count - 1 == 0)
                 {
-                    MessageBox.Show("LastCount");
                     MainWindow.db.OrderProduct.Remove(orderProductToRemove);
                     MainWindow.db.SaveChanges();
                 }
                 else
                 {
-                    MessageBox.Show("PrevCount");
                     orderProductToRemove.Count -= 1;
                     MainWindow.db.SaveChanges();
                 }
@@ -58,7 +56,11 @@ namespace ProductDEmo
             MessageBox.Show("Продукт был удалён");
  
         }
-
+        /// <summary>
+        /// Метод получения продуктов заказа как строки
+        /// </summary>
+        /// <param name="str"></param>
+        /// <returns></returns>
         public string GetProductsInOrderString(string str)
         {
             decimal totalSum = 0;
@@ -84,6 +86,9 @@ namespace ProductDEmo
 
             return str;
         }
+        /// <summary>
+        /// Метод назначения итоговох свойств заказа
+        /// </summary>
         public void FinalOrder()
         {
             Random rnd = new Random();
@@ -93,6 +98,11 @@ namespace ProductDEmo
             UserProductWindow.currentOrder.PickupPoint = PickupPointComboBox.SelectedItem as PickupPoint;
 
         }
+        /// <summary>
+        /// Метод финального оформления заказа с формированием pdf документа
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void GetOrder(object sender, RoutedEventArgs e)
         {
             if (PickupPointComboBox.SelectedItem == null)
@@ -104,8 +114,6 @@ namespace ProductDEmo
             FinalOrder();
             Application app = new Application();
             Document doc = app.Documents.Add();
-            //doc.Content.Text = "ФИО: " + MainWindow.CurrentUser.UserSurname + " " + MainWindow.CurrentUser.UserName + " " + MainWindow
-             //   .CurrentUser.UserPatronymic;
             doc.Content.Text += "Дата заказа: " + UserProductWindow.currentOrder.OrderCreateDate+ "\n" +
                                "Номер заказа: " + UserProductWindow.currentOrder.OrderID + "\n" +
                                "Состав заказа: " + "\n" + GetProductsInOrderString(str) + "\n" +
@@ -113,8 +121,8 @@ namespace ProductDEmo
                                "Сумма скидки: " + TotalSumOfOrderWithDiscounts + "\n" +
                                "Пункт выдачи: " + UserProductWindow.currentOrder.PickupPoint.Address + "\n" +
                                "Код получения: " + UserProductWindow.currentOrder.OrderGetCode + "\n";
-            doc.SaveAs2(@"C:\Users\Azarch\Documents\check.pdf", WdSaveFormat.wdFormatPDF);
-            Process.Start(@"C:\Users\Azarch\Documents\check.pdf");
+            doc.SaveAs2(@"C:\Users\zzz\Documents\check.pdf", WdSaveFormat.wdFormatPDF);
+            Process.Start(@"C:\Users\zzz\Documents\check.pdf");
             doc.Close();
             app.Quit();
         }

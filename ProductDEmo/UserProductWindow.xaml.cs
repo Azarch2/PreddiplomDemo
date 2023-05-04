@@ -17,21 +17,29 @@ namespace ProductDEmo
         {
             InitializeComponent();
         }
+        /// <summary>
+        /// Функция возврата на предыдущее окно
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
          private void BackClick(object sender, RoutedEventArgs e)
         {
             this.Hide();
             MainWindow.mainWindow.Show();
         }
 
-         public void ShowOrderButton()
-         {
-           
-         }
-
+        /// <summary>
+        /// Функция применения фильтра при изменении текста
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void TextChange(object sender, TextChangedEventArgs e)
         {
             AddAllFilters();
         }
+        /// <summary>
+        /// Функция применения всех фильтров
+        /// </summary>
         public void AddAllFilters()
         {
             productSortedList = productSortedList.Where(prod => prod.ProductName.StartsWith(FindTextBox.Text)).ToList();
@@ -62,15 +70,28 @@ namespace ProductDEmo
             productSortedList = MainWindow.db.Product.ToList();
             ChangeColorIfDiscountLargerThan15();
         }
+        /// <summary>
+        /// Событие на применение фильтра при редактировании списка с сортировкой
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ChangeSelection(object sender, SelectionChangedEventArgs e)
         {
             AddAllFilters();
         }
+        /// <summary>
+        /// Функция добавления фильтра от скидки
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
 
         private void ChangeSelectionOfDiscountComboBox(object sender, SelectionChangedEventArgs e)
         {
             AddAllFilters();
         }
+        /// <summary>
+        /// Функция изменения фона если скидка больше определённого значения
+        /// </summary>
         public void ChangeColorIfDiscountLargerThan15()
         {
             for (int i = 0; i < ProductListView.Items.Count; i++)
@@ -90,17 +111,20 @@ namespace ProductDEmo
                 }
             }
         }
-        private void ClickDOubleCheck(object sender, MouseButtonEventArgs e)
-        {
-            ChangeColorIfDiscountLargerThan15();
-        }
+   
+        /// <summary>
+        /// Функция открытия окна оформления заказа
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
 
         private void CheckOrder(object sender, RoutedEventArgs e)
         {
             MainWindow.orderWindow.Show();
-            //MainWindow.orderWindow.OrderListView.ItemsSource = MainWindow.db.Order.Where(order=> order.OrderID==currentOrder.OrderID).FirstOrDefault().OrderProduct;
         }
-
+        /// <summary>
+        /// Функция добавления заказа в базу данных
+        /// </summary>
         public void AddCurrentOrderToDatabase()
         {
             currentOrder.OrderStatusID = 1;
@@ -112,9 +136,11 @@ namespace ProductDEmo
             MainWindow.db.Order.Add(currentOrder);
             MainWindow.db.SaveChanges();
             CurrentOrderExists = true;
-            MessageBox.Show("Order added");
         }
-
+        /// <summary>
+        /// Функция добавления продукта к заказу с подсчётом количества
+        /// </summary>
+        /// <param name="product"></param>
         public void AddProductToOrderWithCounting(Product product)
         {
             Order order = MainWindow.db.Order.Where(ord=> ord.OrderID==currentOrder.OrderID).FirstOrDefault();
@@ -123,11 +149,9 @@ namespace ProductDEmo
             {
                 copy.Count++;
                 MainWindow.db.SaveChanges();
-                //MessageBox.Show("Copied: " + copy.Product.ProductName);
             }
             else
             {
-               // MessageBox.Show("New product: " + product.ProductName);
                 OrderProduct orderProduct = new OrderProduct();
                 orderProduct.Product = product;
                 orderProduct.Order = MainWindow.db.Order.Where(orderthis=> orderthis.OrderID==currentOrder.OrderID).FirstOrDefault();
@@ -137,7 +161,9 @@ namespace ProductDEmo
             }
             
         }
-
+        /// <summary>
+        /// Функция обновления каталога с составом заказа
+        /// </summary>
         public void UpdateOrderList()
         {
             decimal totalSum = 0;
@@ -153,12 +179,33 @@ namespace ProductDEmo
             MainWindow.orderWindow.TotalSumTextBox.Text = "Общая сумма: $" + (totalSum-totalDiscountSum);
             MainWindow.orderWindow.OrderListView.ItemsSource = MainWindow.db.Order.Where(order=> order.OrderID==currentOrder.OrderID).FirstOrDefault().OrderProduct.ToList();
         }
+        /// <summary>
+        /// Функция добавления формируемого заказа
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void AddToOrderClick(object sender, RoutedEventArgs e)
         {
             Product product = (sender as MenuItem).DataContext as Product;
             if (!CurrentOrderExists)
             {
                 AddCurrentOrderToDatabase(); 
+            }
+            AddProductToOrderWithCounting(product);
+            UpdateOrderList();
+            MessageBox.Show("К заказу был добавлен продукт");
+        }
+        /// <summary>
+        /// Функция добавления продукта к заказу
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void AddToOrderBtnClick(object sender, RoutedEventArgs e)
+        {
+            Product product = (sender as Button).DataContext as Product;
+            if (!CurrentOrderExists)
+            {
+                AddCurrentOrderToDatabase();
             }
             AddProductToOrderWithCounting(product);
             UpdateOrderList();

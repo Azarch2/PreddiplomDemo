@@ -28,11 +28,17 @@ namespace ProductDEmo
             mainWindow = this;
             PathInitialize();
         }
+        /// <summary>
+        /// Функция генерации Капчи
+        /// </summary>
         public void GenerateCaptcha()
         {
             Random rnd = new Random();
             CaptchaNumbers = rnd.Next(10000, 99999);
         }
+        /// <summary>
+        /// Функция инициализации путей
+        /// </summary>
         public void PathInitialize()
         {
             string vivod = "";
@@ -50,20 +56,30 @@ namespace ProductDEmo
                 }
                 vivod += Product.FullPath + "\n";
             }
-           // MessageBox.Show(vivod);
         }
-
+        /// <summary>
+        /// Обработка события нажатия на кнопку выхода
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ExitClick(object sender, RoutedEventArgs e)
         {
             Application.Current.Shutdown();
         }
+        /// <summary>
+        /// Функция загрузки окна администратора
+        /// </summary>
         public void LoadAdminWindow()
         {
             this.Hide();
             adminWindow.AdminProductGrid.ItemsSource = db.Product.ToList();
             adminWindow.Show();
         }
-
+        /// <summary>
+        /// Функция авторизации
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void AuthorizationClick(object sender, RoutedEventArgs e)
         {
             if (NumbersOfIncorrectAuthorizations < 5)
@@ -112,13 +128,19 @@ namespace ProductDEmo
                 MessageBox.Show("Сначала пройдите капчу!");
             }
         }
-
+        /// <summary>
+        /// Функция очистки текстовых полей
+        /// </summary>
         public void TextBoxClear()
         {
             PasswordTextBox.Text = "";
             LoginTextBox.Text = "";
         }
-
+        /// <summary>
+        /// Функция перехода на окно просмотра продуктов
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ProductsClick(object sender, RoutedEventArgs e)
         {
             productWindow.ProductListView.ItemsSource = db.Product.ToList();

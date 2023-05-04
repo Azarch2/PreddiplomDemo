@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ProductDEmo"
         mc:Ignorable="d"
-        Title="ProductWindow" MouseDoubleClick="ClickDOubleCheck" Height="510" Width="800" WindowStartupLocation="CenterScreen" Icon="Resources/icon.ico">
+        Title="ProductWindow" MouseDoubleClick="ClickDOubleCheck" Height="600" Width="800" WindowStartupLocation="CenterScreen" Icon="Resources/icon.ico">
     <Window.Resources>
     </Window.Resources>
     <Grid >
@@ -23,7 +23,7 @@
         <Border Grid.Row="2" Background="#76E383"></Border>
         <TextBlock Name="InfoTextBox" Grid.Row="2" Foreground="#468C51" Text="Кол-во данных:" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource StandartTextBlock}"></TextBlock>
         <StackPanel Grid.Row="3" HorizontalAlignment="Center" VerticalAlignment="Center">
-            <ListView Width="780" Height="260" Name="ProductListView" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+            <ListView Width="780" Height="350" Name="ProductListView" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
                 <ListView.ItemsPanel>
                     <ItemsPanelTemplate>
                         <StackPanel Margin="10" Orientation="Vertical"></StackPanel>

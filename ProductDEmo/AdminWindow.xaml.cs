@@ -23,15 +23,21 @@ namespace ProductDEmo
         {
             InitializeComponent();
         }
-
+        /// <summary>
+        /// Функция возврата на предыдущее окно
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void BackClick(object sender, RoutedEventArgs e)
         {
             this.Hide();
             MainWindow.mainWindow.Show();
         }
-
-
-
+        /// <summary>
+        /// Функция вывода окна редактирования продукта
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ChangeProduct(object sender, SelectionChangedEventArgs e)
         {
             ChangeProductWindow.currentProduct = AdminProductGrid.SelectedItem as Product;
@@ -48,20 +54,15 @@ namespace ProductDEmo
             MainWindow.changeProductWindow.DiscountTextBox.Text = choosed.ProductDiscountAmount.ToString();
             MainWindow.changeProductWindow.QuantityTextBox.Text = choosed.ProductQuantityInStock.ToString();
             MainWindow.changeProductWindow.DescriptionTextBox.Text = choosed.ProductDescription;
+            MessageBox.Show("Choosed: " + choosed.FullPath);
             try
             {
                 MainWindow.changeProductWindow.ChoosedPhotoImage.Source = new BitmapImage(new Uri("C:\\PreddiplomDemo\\ProductDEmo\\" + choosed.FullPath));
             }
             catch
             {
-                if (choosed.FullPath != null)
-                {
-                    MainWindow.changeProductWindow.ChoosedPhotoImage.Source = new BitmapImage(new Uri(choosed.FullPath));
-                }
-            }
-            finally
-            {
-
+                choosed.ProductPhoto = "C:\\PreddiplomDemo\\ProductDEmo\\Resources\\picture.png";
+                MainWindow.changeProductWindow.ChoosedPhotoImage.Source = new BitmapImage(new Uri(choosed.ProductPhoto));
             }
             MainWindow.changeProductWindow.CategoryComboBox.ItemsSource = MainWindow.db.ProductCategory.ToList();
             MainWindow.changeProductWindow.ManufacturerComboBox.ItemsSource = MainWindow.db.ProductManufacturer.ToList();
@@ -73,7 +74,11 @@ namespace ProductDEmo
             MainWindow.changeProductWindow.UnitTypeComboBox.SelectedItem = choosed.UnitType;
             MainWindow.changeProductWindow.Show();
         }
-
+        /// <summary>
+        /// Функция показа окна добавления товара
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void AddClick(object sender, RoutedEventArgs e)
         {
             MainWindow.addProductWindow.CategoryComboBox.ItemsSource = MainWindow.db.ProductCategory.ToList();
