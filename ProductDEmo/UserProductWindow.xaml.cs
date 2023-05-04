@@ -108,7 +108,7 @@ namespace ProductDEmo
             currentOrder.OrderCreateDate=DateTime.Now;
             currentOrder.OrderDeliveryDate=DateTime.Now;
             currentOrder.User = MainWindow.CurrentUser;
-            currentOrder.OrderGetCode = 5555;
+            currentOrder.OrderGetCode = 555;
             MainWindow.db.Order.Add(currentOrder);
             MainWindow.db.SaveChanges();
             CurrentOrderExists = true;

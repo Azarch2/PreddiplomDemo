@@ -92,3 +92,5 @@ C:\PreddiplomDemo\ProductDEmo\obj\Debug\UserProductWindow.g.cs
 C:\PreddiplomDemo\ProductDEmo\obj\Debug\UserProductWindow.baml
 C:\PreddiplomDemo\ProductDEmo\obj\Debug\OrderWindow.g.cs
 C:\PreddiplomDemo\ProductDEmo\obj\Debug\OrderWindow.baml
+C:\PreddiplomDemo\ProductDEmo\bin\Debug\Microsoft.Office.Interop.Word.dll
+C:\PreddiplomDemo\ProductDEmo\bin\Debug\stdole.dll
