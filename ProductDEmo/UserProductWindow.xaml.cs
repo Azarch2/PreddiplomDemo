@@ -155,16 +155,7 @@ namespace ProductDEmo
         }
         private void AddToOrderClick(object sender, RoutedEventArgs e)
         {
-            Product product;
-            try
-            {
-                 product = (sender as MenuItem).DataContext as Product;
-            }
-            catch
-            {
-                 product = (sender as Button).DataContext as Product;
-            }
-
+            Product product = (sender as MenuItem).DataContext as Product;
             if (!CurrentOrderExists)
             {
                 AddCurrentOrderToDatabase(); 

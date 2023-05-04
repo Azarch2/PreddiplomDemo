@@ -55,8 +55,10 @@ namespace ProductDEmo
         private void ChoosePhotoClick(object sender, RoutedEventArgs e)
         {
             OpenFileDialog dialog = new OpenFileDialog();
-            dialog.ShowDialog();
-            ChoosedPhotoImage.Source = new BitmapImage(new Uri(dialog.FileName));
+            if (dialog.ShowDialog() == true)
+            {
+                ChoosedPhotoImage.Source = new BitmapImage(new Uri(dialog.FileName));
+            }
         }
 
         private void Close(object sender, CancelEventArgs e)

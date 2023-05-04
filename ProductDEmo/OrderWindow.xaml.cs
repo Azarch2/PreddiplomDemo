@@ -15,9 +15,12 @@ namespace ProductDEmo
     {
         public static decimal TotalSumOfOrder = 0;
         public static decimal TotalSumOfOrderWithDiscounts = 0;
+
+
         public OrderWindow()
         {
             InitializeComponent();
+            PickupPointComboBox.ItemsSource = MainWindow.db.PickupPoint.ToList();
         }
 
         private void CheckOrder(object sender, RoutedEventArgs e)
@@ -62,8 +65,6 @@ namespace ProductDEmo
             decimal totalDiscountSum = 0;
             foreach (var orderProduct in MainWindow.db.Order.Where(order=> order.OrderID==UserProductWindow.currentOrder.OrderID).FirstOrDefault().OrderProduct)
             {
-                totalSum = 0;
-                totalDiscountSum = 0;
                 totalSum += orderProduct.Product.ProductCost * orderProduct.Count;
                 totalDiscountSum +=
                     (decimal)(orderProduct.Product.ProductCost * orderProduct.Product.ProductDiscountAmount / 100 * orderProduct.Count);
@@ -73,13 +74,13 @@ namespace ProductDEmo
                 str += "Цена: $" + (orderProduct.Product.ProductCost * orderProduct.Count) + "\n";
                 str += "Поставщик: " + orderProduct.Product.ProductSupplier.ProductSupplierName + "\n";
                 str += "Категория: " + orderProduct.Product.ProductCategory.ProductCategoryName + "\n";
-                str += "Скидка: " + orderProduct.Product.ProductDiscountAmount + "\n";
+                str += "Скидка: " + orderProduct.Product.ProductDiscountAmount + "%\n";
                 str += "Описание: " + orderProduct.Product.ProductDescription + "\n";
                 str += "\n";
             }
 
             TotalSumOfOrder = totalSum;
-            TotalSumOfOrderWithDiscounts = totalSum - totalDiscountSum;
+            TotalSumOfOrderWithDiscounts = totalDiscountSum;
 
             return str;
         }
@@ -89,19 +90,25 @@ namespace ProductDEmo
             UserProductWindow.currentOrder.OrderGetCode = rnd.Next(100, 1000);
             UserProductWindow.currentOrder.OrderCreateDate = DateTime.Now;
             UserProductWindow.currentOrder.OrderDeliveryDate = DateTime.Now + TimeSpan.FromHours(72);
-            
+            UserProductWindow.currentOrder.PickupPoint = PickupPointComboBox.SelectedItem as PickupPoint;
+
         }
         private void GetOrder(object sender, RoutedEventArgs e)
         {
+            if (PickupPointComboBox.SelectedItem == null)
+            {
+                MessageBox.Show("Вы не выбрали пункт назначения!");
+                return;
+            }
             string str = "";
             FinalOrder();
             Application app = new Application();
             Document doc = app.Documents.Add();
-            doc.Content.Text = "ФИО: " + MainWindow.CurrentUser.UserSurname + " " + MainWindow.CurrentUser.UserName + " " + MainWindow
-                .CurrentUser.UserPatronymic;
+            //doc.Content.Text = "ФИО: " + MainWindow.CurrentUser.UserSurname + " " + MainWindow.CurrentUser.UserName + " " + MainWindow
+             //   .CurrentUser.UserPatronymic;
             doc.Content.Text += "Дата заказа: " + UserProductWindow.currentOrder.OrderCreateDate+ "\n" +
                                "Номер заказа: " + UserProductWindow.currentOrder.OrderID + "\n" +
-                               "Состав заказа: " + GetProductsInOrderString(str) + "\n" +
+                               "Состав заказа: " + "\n" + GetProductsInOrderString(str) + "\n" +
                                "Сумма заказа: " + TotalSumOfOrder + "\n" +
                                "Сумма скидки: " + TotalSumOfOrderWithDiscounts + "\n" +
                                "Пункт выдачи: " + UserProductWindow.currentOrder.PickupPoint.Address + "\n" +

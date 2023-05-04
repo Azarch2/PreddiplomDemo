@@ -59,7 +59,7 @@
         </StackPanel>
         <Border Grid.ColumnSpan="2" Grid.Row="0" Background="#468C51"></Border>
         <TextBlock Text="Добавление товара"  Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource StandartTextBlock}"></TextBlock>
-        <Button Grid.ColumnSpan="2" Background="LightGreen"  Content="Добавить" FontSize="26" Width="250" Height="65" VerticalAlignment="Bottom" HorizontalAlignment="Left" Style="{StaticResource StandartButton}" Grid.Row="2" Margin="10" Click="ChangeProductClick">
+        <Button Grid.ColumnSpan="2" Background="LightGreen"  Content="Изменить" FontSize="26" Width="250" Height="65" VerticalAlignment="Bottom" HorizontalAlignment="Left" Style="{StaticResource StandartButton}" Grid.Row="2" Margin="10" Click="ChangeProductClick">
             <Button.Resources>
                 <Style TargetType="Border">
                     <Setter Property="CornerRadius" Value="20"></Setter>

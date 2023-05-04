@@ -31,27 +31,40 @@ namespace ProductDEmo
         private void ChoosePhotoClick(object sender, RoutedEventArgs e)
         {
             OpenFileDialog dialog = new OpenFileDialog();
-            dialog.ShowDialog();
-            ChoosedPhotoImage.Source = new BitmapImage(new Uri(dialog.FileName));
+            if (dialog.ShowDialog() == true)
+            {
+                ChoosedPhotoImage.Source = new BitmapImage(new Uri(dialog.FileName));
+            }
         }
 
         private void ChangeProductClick(object sender, RoutedEventArgs e)
         {
-            currentProduct.ProductManufacturer = ManufacturerComboBox.SelectedItem as ProductManufacturer;
-            currentProduct.ProductName = NameTextBox.Text;
-            currentProduct.ProductSupplier = SupplierComboBox.SelectedItem as ProductSupplier;
-            currentProduct.ProductCategory = CategoryComboBox.SelectedItem as ProductCategory;
-            currentProduct.ProductCost = decimal.Parse(PriceTextBox.Text);
-            currentProduct.ProductDescription= DescriptionTextBox.Text;
-            currentProduct.ProductMaxDiscountAmount = byte.Parse( MaxDiscountTextBox.Text);
-            currentProduct.ProductDiscountAmount = byte.Parse(DiscountTextBox.Text);
-            currentProduct.ProductQuantityInStock = int.Parse(QuantityTextBox.Text);
-            currentProduct.ProductPhoto = ChoosedPhotoImage.Source.ToString();
-            currentProduct.FullPath = ChoosedPhotoImage.Source.ToString();
-            MainWindow.db.SaveChanges();
-            MessageBox.Show("Вы успешно отредактировали товар!");
-            this.Hide();
-            MainWindow.adminWindow.AdminProductGrid.ItemsSource = MainWindow.db.Product.ToList();
+            try
+            {
+                currentProduct.ProductManufacturer = ManufacturerComboBox.SelectedItem as ProductManufacturer;
+                currentProduct.ProductName = NameTextBox.Text;
+                currentProduct.ProductSupplier = SupplierComboBox.SelectedItem as ProductSupplier;
+                currentProduct.ProductCategory = CategoryComboBox.SelectedItem as ProductCategory;
+                currentProduct.ProductCost = decimal.Parse(PriceTextBox.Text);
+                currentProduct.ProductDescription = DescriptionTextBox.Text;
+                currentProduct.ProductMaxDiscountAmount = byte.Parse(MaxDiscountTextBox.Text);
+                currentProduct.ProductDiscountAmount = byte.Parse(DiscountTextBox.Text);
+                currentProduct.ProductQuantityInStock = int.Parse(QuantityTextBox.Text);
+                if (ChoosedPhotoImage.Source != null)
+                {
+                    currentProduct.ProductPhoto = ChoosedPhotoImage.Source.ToString();
+                    currentProduct.FullPath = ChoosedPhotoImage.Source.ToString();
+                }
+
+                MainWindow.db.SaveChanges();
+                MessageBox.Show("Вы успешно отредактировали товар!");
+                this.Hide();
+                MainWindow.adminWindow.AdminProductGrid.ItemsSource = MainWindow.db.Product.ToList();
+            }
+            catch
+            {
+                MessageBox.Show("Вы неверно заполнили поля")
+            }
         }
 
         private void Close(object sender, System.ComponentModel.CancelEventArgs e)

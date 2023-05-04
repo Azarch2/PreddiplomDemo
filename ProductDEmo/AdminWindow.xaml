@@ -22,7 +22,7 @@
                 </Style>
             </Button.Resources>
         </Button>
-        <Button Background="LightGreen" Content="Добавить товар" Width="150" HorizontalAlignment="Center" Style="{StaticResource StandartButton}" Grid.Row="4" Margin="10" Click="AddClick">
+        <Button Background="LightGreen" Content="Добавить товар" Width="195" HorizontalAlignment="Center" Style="{StaticResource StandartButton}" Grid.Row="4" Margin="10" Click="AddClick">
             <Button.Resources>
                 <Style TargetType="Border">
                     <Setter Property="CornerRadius" Value="20"></Setter>
@@ -46,7 +46,7 @@
                 <DataGridTemplateColumn Header="Photo">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <Image Width="50" Source="{Binding FullPath}"></Image>
+                            <Image Width="50" Source="{Binding FullPath, TargetNullValue=Resources/picture.png}"></Image>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
