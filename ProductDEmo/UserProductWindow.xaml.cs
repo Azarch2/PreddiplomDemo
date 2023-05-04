@@ -114,33 +114,64 @@ namespace ProductDEmo
             CurrentOrderExists = true;
             MessageBox.Show("Order added");
         }
+
+        public void AddProductToOrderWithCounting(Product product)
+        {
+            Order order = MainWindow.db.Order.Where(ord=> ord.OrderID==currentOrder.OrderID).FirstOrDefault();
+            OrderProduct copy = order.OrderProduct.Where(ord => ord.Product == product).FirstOrDefault();
+            if (copy != null)
+            {
+                copy.Count++;
+                MainWindow.db.SaveChanges();
+                //MessageBox.Show("Copied: " + copy.Product.ProductName);
+            }
+            else
+            {
+               // MessageBox.Show("New product: " + product.ProductName);
+                OrderProduct orderProduct = new OrderProduct();
+                orderProduct.Product = product;
+                orderProduct.Order = MainWindow.db.Order.Where(orderthis=> orderthis.OrderID==currentOrder.OrderID).FirstOrDefault();
+                orderProduct.Count = 1;
+                MainWindow.db.OrderProduct.Add(orderProduct);
+                MainWindow.db.SaveChanges();
+            }
+            
+        }
+
+        public void UpdateOrderList()
+        {
+            decimal totalSum = 0;
+            decimal totalDiscountSum = 0;
+            foreach (var OrderProduct in MainWindow.db.Order.Where(order=> order.OrderID==currentOrder.OrderID).FirstOrDefault().OrderProduct.ToList())
+            {
+                totalSum += OrderProduct.Product.ProductCost * OrderProduct.Count;
+                totalDiscountSum +=
+                    (decimal)(OrderProduct.Product.ProductCost * OrderProduct.Product.ProductDiscountAmount / 100 * OrderProduct.Count);
+            }
+
+            MainWindow.orderWindow.TotalDiscountTextBox.Text = "Общая скидка: $" + (totalDiscountSum);
+            MainWindow.orderWindow.TotalSumTextBox.Text = "Общая сумма: $" + (totalSum-totalDiscountSum);
+            MainWindow.orderWindow.OrderListView.ItemsSource = MainWindow.db.Order.Where(order=> order.OrderID==currentOrder.OrderID).FirstOrDefault().OrderProduct.ToList();
+        }
         private void AddToOrderClick(object sender, RoutedEventArgs e)
         {
+            Product product;
+            try
+            {
+                 product = (sender as MenuItem).DataContext as Product;
+            }
+            catch
+            {
+                 product = (sender as Button).DataContext as Product;
+            }
+
             if (!CurrentOrderExists)
             {
-                AddCurrentOrderToDatabase();
+                AddCurrentOrderToDatabase(); 
             }
-            Product product = (sender as MenuItem).DataContext as Product;
-           // MessageBox.Show(product.ProductName);
-            OrderProduct orderProduct = new OrderProduct();
-            orderProduct.Product = product;
-            orderProduct.Order = MainWindow.db.Order.Where(order=> order.OrderID==currentOrder.OrderID).FirstOrDefault();
-            orderProduct.Count = 1;
-            MainWindow.db.OrderProduct.Add(orderProduct);
-            MainWindow.db.SaveChanges();
-            MainWindow.orderWindow.OrderListView.ItemsSource = MainWindow.db.Order.Where(order=> order.OrderID==currentOrder.OrderID).FirstOrDefault().OrderProduct.ToList();
-           // MainWindow.orderWindow.OrderListView.ItemsSource = MainWindow.db.Order.ToList();
-            MessageBox.Show("CountOfProducts: " + MainWindow.db.Order
-                .Where(order => order.OrderID == currentOrder.OrderID).FirstOrDefault().OrderProduct.Count);
-            MessageBox.Show("ItemCountINlist: " + MainWindow.orderWindow.OrderListView.Items.Count);
-            if (MainWindow.db.Order
-                    .Where(order => order.OrderID == currentOrder.OrderID).FirstOrDefault().OrderProduct.Count > 1)
-            {
-                MessageBox.Show("Второй айтем: " +
-                                (MainWindow.orderWindow.OrderListView.Items[1] as OrderProduct).Product.ProductName);
-            }
+            AddProductToOrderWithCounting(product);
+            UpdateOrderList();
             MessageBox.Show("К заказу был добавлен продукт");
-            // order.Product = 
         }
     }
 }

@@ -32,7 +32,7 @@
                         <Grid Name="ItemGrid" Height="175" Width="750" Background="Aquamarine">
                             <Grid.ContextMenu>
                                 <ContextMenu>
-                                    <MenuItem Header="Добавить к заказу" Click="AddToOrderClick"></MenuItem>
+                                    <MenuItem Header="Добавить к заказу" Click="AddToOrderClick" ></MenuItem>
                                 </ContextMenu>
                             </Grid.ContextMenu>
                             <StackPanel Orientation="Horizontal">
@@ -50,7 +50,7 @@
                                     <TextBlock FontSize="18" Foreground="Black" Text="{Binding ProductDescription, StringFormat={}Описание: {0}}" Style="{StaticResource StandartTextBlock}"></TextBlock>
                                     <TextBlock FontSize="18" Foreground="Black" Text="{Binding ProductManufacturer.ProductManufacturerName, StringFormat={}Производитель: {0}}" Style="{StaticResource StandartTextBlock}"></TextBlock>
                                     <TextBlock FontSize="18" Foreground="Black" Text="{Binding ProductCost, StringFormat={}Цена: {0:C}}" Style="{StaticResource StandartTextBlock}"></TextBlock>
-                                    <Button Background="Teal" Foreground="Gainsboro" Content="Добавить в корзину" Margin="0,9,2,0" Height="40" Width="220" HorizontalAlignment="Left" Style="{StaticResource StandartButton}">
+                                    <Button Background="Teal" Foreground="Gainsboro" Content="Добавить в корзину" Margin="0,9,2,0" Height="40" Width="220" HorizontalAlignment="Left" Style="{StaticResource StandartButton}" Click="AddToOrderClick">
                                         <Button.Resources>
                                             <Style TargetType="Border">
                                                 <Setter Property="CornerRadius" Value="20"></Setter>

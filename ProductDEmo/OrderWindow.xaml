@@ -5,7 +5,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:local="clr-namespace:ProductDEmo"
         mc:Ignorable="d"
-        Title="OrderWindow" Height="490" Width="525" WindowStartupLocation="CenterScreen" Icon="Resources/icon.ico" Closing="Close">
+        Title="OrderWindow" Height="575" Width="550" WindowStartupLocation="CenterScreen" Icon="Resources/icon.ico" Closing="Close">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="50"></RowDefinition>
@@ -16,13 +16,7 @@
         <Border Background="#468C51"></Border>
         <TextBlock Text="Состав заказа"  HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource StandartTextBlock}"></TextBlock>
         <Border Grid.Row="3"  Background="#468C51"></Border>
-            <Button Content="Оформить заказ" Width="195" HorizontalAlignment="Center" Style="{StaticResource StandartButton}" Grid.Row="3" Margin="3" Click="CheckOrder">
-                <Button.Resources>
-                    <Style TargetType="Border">
-                        <Setter Property="CornerRadius" Value="20"></Setter>
-                    </Style>
-                </Button.Resources>
-            </Button>
+         
         <ListView Name="OrderListView" Grid.Row="1" Margin="3" ScrollViewer.CanContentScroll="False" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
             <ListView.ItemsPanel>
                 <ItemsPanelTemplate>
@@ -35,21 +29,39 @@
                     <Border BorderBrush="Black" BorderThickness="2"></Border>
                     <StackPanel Orientation="Vertical">
                         <Image Margin="5" Height="180" Source="{Binding Product.FullPath}"></Image>
-                        <TextBlock FontSize="20" HorizontalAlignment="Center" Foreground="Black" Style="{StaticResource StandartTextBlock}" Margin="10,0,0,0" Text="{Binding Product.ProductName}"></TextBlock>
-                        <TextBlock FontSize="18" Foreground="Black" Style="{StaticResource StandartTextBlock}" Margin="10,0,0,0" Text="Наименование:"></TextBlock>
-                        <TextBlock FontSize="18" Foreground="Black" Style="{StaticResource StandartTextBlock}" Margin="10,0,0,0" Text="Единица:"></TextBlock>
-                        <TextBlock FontSize="18" Foreground="Black" Style="{StaticResource StandartTextBlock}" Margin="10,0,0,0" Text="Цена:"></TextBlock>
-                        <TextBlock FontSize="18" Foreground="Black" Style="{StaticResource StandartTextBlock}" Margin="10,0,0,0" Text="Производитель:"></TextBlock>
-                        <TextBlock FontSize="18" Foreground="Black" Style="{StaticResource StandartTextBlock}" Margin="10,0,0,0" Text="Кол-во в упаковке:"></TextBlock>
-                        <TextBlock TextWrapping="Wrap" FontWeight="Light" FontSize="18" Foreground="Black" Style="{StaticResource StandartTextBlock}" Margin="10,0,0,0" Text="Описание:"></TextBlock>
-                        <TextBlock FontSize="18" Foreground="Black" Style="{StaticResource StandartTextBlock}" Margin="10,0,0,0" Text="Количество:"></TextBlock>
+                        <TextBlock FontSize="20" HorizontalAlignment="Center" Foreground="Black" Style="{StaticResource StandartTextBlock}" Margin="10,0,0,0" Text="{Binding Product.ProductArticle, StringFormat={}Артикул: {0}}"></TextBlock>
+                        <TextBlock FontSize="18" Foreground="Black" Style="{StaticResource StandartTextBlock}" Margin="10,0,0,0" Text="{Binding Product.ProductName, StringFormat={}Наименование: {0}}"></TextBlock>
+                        <TextBlock FontSize="18" Foreground="Black" Style="{StaticResource StandartTextBlock}" Margin="10,0,0,0" Text="{Binding Product.UnitType.UnitTypeName, StringFormat={}Единица: {0:C}}"></TextBlock>
+                        <TextBlock FontSize="18" Foreground="Black" Style="{StaticResource StandartTextBlock}" Margin="10,0,0,0" Text="{Binding Product.ProductCost, StringFormat={}Цена: {0:C}}"></TextBlock>
+                        <TextBlock FontSize="18" Foreground="Black" Style="{StaticResource StandartTextBlock}" Margin="10,0,0,0" Text="{Binding Product.ProductManufacturer.ProductManufacturerName, StringFormat={}Производитель: {0}}"></TextBlock>
+                        <TextBlock FontSize="18" Foreground="Black" Style="{StaticResource StandartTextBlock}" Margin="10,0,0,0" Text="{Binding Product.ProductQuantityInStock, StringFormat={}Кол-во в упаковке: {0}}"></TextBlock>
+                        <TextBlock TextWrapping="Wrap" FontWeight="Light" FontSize="18" Foreground="Black" Style="{StaticResource StandartTextBlock}" Margin="10,0,0,0" Text="{Binding Product.ProductDescription, StringFormat={}Описание: {0}}"></TextBlock>
+                        <Grid Margin="0,0,0,0">
+                            <TextBlock FontSize="18" Foreground="Black" Style="{StaticResource StandartTextBlock}" Margin="10,0,0,0" Text="{Binding Count, StringFormat={}Количество: {0}}"></TextBlock>
+                            <Button Background="Red" FontSize="14" Margin="5" Height="25" FontWeight="ExtraBold" Content="Убрать" Width="120" HorizontalAlignment="Right" Style="{StaticResource StandartButton}"  Click="Minus">
+                                <Button.Resources>
+                                    <Style TargetType="Border">
+                                        <Setter Property="CornerRadius" Value="20"></Setter>
+                                    </Style>
+                                </Button.Resources>
+                            </Button>
+                        </Grid>
                     </StackPanel>
                 </Grid>
                </DataTemplate>
            </ListView.ItemTemplate>
         </ListView>
         <Border BorderBrush="LightGreen" BorderThickness="2" Grid.Row="2" Background="#468C51"></Border>
-        <TextBlock Grid.Row="2" Text="Общая сумма:"  HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource StandartTextBlock}"></TextBlock>
+        <TextBlock FontSize="14" Margin="10,0,0,0" Name="TotalSumTextBox" Grid.Row="2" Text="Общая сумма:"  HorizontalAlignment="Left" VerticalAlignment="Center" Style="{StaticResource StandartTextBlock}"></TextBlock>
+        <TextBlock FontSize="14" Margin="0,0,10,0" Name="TotalDiscountTextBox" Grid.Row="2" Text="Общая скидка:"  HorizontalAlignment="Right" VerticalAlignment="Center" Style="{StaticResource StandartTextBlock}"></TextBlock>
+
         <Border Grid.Row="3"  Background="#468C51"></Border>
+        <Button Content="Оформить заказ" Width="195" HorizontalAlignment="Center" Style="{StaticResource StandartButton}" Grid.Row="3" Margin="3" Click="CheckOrder">
+            <Button.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="20"></Setter>
+                </Style>
+            </Button.Resources>
+        </Button>
     </Grid>
 </Window>
